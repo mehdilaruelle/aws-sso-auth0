@@ -1,19 +1,13 @@
 variable "region" {
   description = "The region in which the resources will be created."
-  default     = "eu-west-1"
 }
 
 variable "auth0_domain" {
   description = "The Auth0 domain."
 }
 
-variable "env" {
-  description = "The environment variable to defined the context to launch the stack."
-  default     = "dev"
-}
-
 variable "tags" {
-  description = "A map of key/value to use as a map for the component deploy by the stack."
+  description = "A map of key/value to tags resources deploy by the stack."
   type        = map(string)
   default     = {}
 }

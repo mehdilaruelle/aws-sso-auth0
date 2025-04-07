@@ -1,9 +1,9 @@
 output "arn" {
-  value = one(data.aws_ssoadmin_instances.google.arns)
+  value = one(data.aws_ssoadmin_instances.idp.arns)
 }
 
 output "identity_store_id" {
-  value = one(data.aws_ssoadmin_instances.google.identity_store_ids)
+  value = one(data.aws_ssoadmin_instances.idp.identity_store_ids)
 }
 
 output "groups" {
