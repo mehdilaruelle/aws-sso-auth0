@@ -71,6 +71,13 @@ resource "aws_ssoadmin_permission_set_inline_policy" "billing" {
 }
 ```
 
+# MUST BE DONE
+
+1. Go to root admin account
+2. Select primary region
+3. Go to AWS SSO
+4. Enable AWS SSO
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -83,6 +90,7 @@ resource "aws_ssoadmin_permission_set_inline_policy" "billing" {
 
 | Name | Version |
 |------|---------|
+| <a name="provider_auth0"></a> [auth0](#provider\_auth0) | 1.15.0 |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.94.1 |
 
 ## Modules
@@ -95,6 +103,7 @@ resource "aws_ssoadmin_permission_set_inline_policy" "billing" {
 
 | Name | Type |
 |------|------|
+| [auth0_client.my_client](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/client) | resource |
 | [aws_identitystore_group_membership.idp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group_membership) | resource |
 | [aws_identitystore_user.idp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_user) | resource |
 | [aws_ssoadmin_instances.idp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssoadmin_instances) | data source |
@@ -104,6 +113,7 @@ resource "aws_ssoadmin_permission_set_inline_policy" "billing" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_auth0_domain"></a> [auth0\_domain](#input\_auth0\_domain) | The Auth0 domain. | `any` | n/a | yes |
+| <a name="input_aws_acs_callback_url"></a> [aws\_acs\_callback\_url](#input\_aws\_acs\_callback\_url) | The AWS IAM Identity Center Assertion Consumer (ACS) Service URL. It used as a callback by Auth0. | `any` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The region in which the resources will be created. | `any` | n/a | yes |
 | <a name="input_sso_groups"></a> [sso\_groups](#input\_sso\_groups) | The list of group to create in AWS SSO including: members, policy ARN & account IDs. | <pre>list(object({<br/>    name        = string,<br/>    description = optional(string),<br/>    policy_arns = list(string),<br/>    members     = optional(list(string), []),<br/>    account_ids = optional(list(string), []),<br/>  }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of key/value to tags resources deploy by the stack. | `map(string)` | `{}` | no |

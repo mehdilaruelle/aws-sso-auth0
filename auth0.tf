@@ -1,67 +1,36 @@
-# resource "auth0_client" "my_client" {
-#   name                                = "Application - Acceptance Test"
-#   description                         = "Test Applications Long Description"
-#   app_type                            = "non_interactive"
-#   compliance_level                    = "none"
-#   custom_login_page_on                = true
-#   is_first_party                      = true
-#   is_token_endpoint_ip_header_trusted = true
-#   oidc_conformant                     = false
-#   callbacks                           = ["https://example.com/callback"]
-#   allowed_origins                     = ["https://example.com"]
-#   allowed_logout_urls                 = ["https://example.com"]
-#   web_origins                         = ["https://example.com"]
-#   require_proof_of_possession         = false
+resource "auth0_client" "my_client" {
+  name        = "AWS SSO"
+  description = "AWS SSO connection with Auth0"
+  app_type    = "regular_web"
+  callbacks   = [var.aws_acs_callback_url]
 
-#   grant_types = [
-#     "authorization_code",
-#     "http://auth0.com/oauth/grant-type/password-realm",
-#     "implicit",
-#     "password",
-#     "refresh_token"
-#   ]
-#   client_metadata = {
-#     foo = "zoo"
-#   }
+  grant_types = [
+    "authorization_code",
+    "implicit",
+    "refresh_token",
+    "client_credentials",
+  ]
 
-#   jwt_configuration {
-#     lifetime_in_seconds = 300
-#     secret_encoded      = true
-#     alg                 = "RS256"
-#     scopes = {
-#       foo = "bar"
-#     }
-#   }
-
-#   refresh_token {
-#     leeway          = 0
-#     token_lifetime  = 2592000
-#     rotation_type   = "rotating"
-#     expiration_type = "expiring"
-#   }
-
-#   mobile {
-#     ios {
-#       team_id               = "9JA89QQLNQ"
-#       app_bundle_identifier = "com.my.bundle.id"
-#     }
-#   }
-
-#   addons {
-#     samlp {
-#       destination = "https://eu-west-3.signin.aws.amazon.com/platform/saml/acs/4ad06657-cc15-4356-b4df-177ac05f1ff5"
-#       mappings = {
-#         email = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-#         name  = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-#       }
-#       create_upn_claim                   = false
-#       passthrough_claims_with_no_mapping = false
-#       map_unknown_claims_as_is           = false
-#       map_identities                     = false
-#       name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
-#       name_identifier_probes = [
-#         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-#       ]
-#     }
-#   }
-# }
+  addons {
+    samlp {
+      destination = var.aws_acs_callback_url
+      mappings = {
+        email    = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+        nickname = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      }
+      create_upn_claim                   = false
+      passthrough_claims_with_no_mapping = false
+      map_unknown_claims_as_is           = false
+      map_identities                     = false
+      name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+      name_identifier_probes = [
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+      ]
+      lifetime_in_seconds           = 3600
+      typed_attributes              = true
+      signature_algorithm           = "rsa-sha1"
+      digest_algorithm              = "sha1"
+      include_attribute_name_format = true
+    }
+  }
+}

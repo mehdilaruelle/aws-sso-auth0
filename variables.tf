@@ -6,6 +6,10 @@ variable "auth0_domain" {
   description = "The Auth0 domain."
 }
 
+variable "aws_acs_callback_url" {
+  description = "The AWS IAM Identity Center Assertion Consumer (ACS) Service URL. It used as a callback by Auth0."
+}
+
 variable "tags" {
   description = "A map of key/value to tags resources deploy by the stack."
   type        = map(string)
