@@ -13,3 +13,7 @@ output "groups" {
 output "users" {
   value = local.sso_users
 }
+
+output "aws_sso_idp_metadata" {
+  value = data.http.idp_metadata.response_body
+}

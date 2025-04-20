@@ -16,13 +16,14 @@ module "main" {
 
 locals {
   sso_users = distinct(compact(flatten([for sso_group in var.sso_groups : sso_group.members]))) # Get all users for each groups as a global user
-}
-
-resource "aws_identitystore_user" "idp" {
-  for_each = {
+  users_info = {
     for sso_user in local.sso_users :
     sso_user => one(regex("([^@]+)", sso_user)) # email => firstname.lastname (if lastname exist, if not set UNDEFINED)
   }
+}
+
+resource "aws_identitystore_user" "idp" {
+  for_each = local.users_info
 
   identity_store_id = one(data.aws_ssoadmin_instances.idp.identity_store_ids)
 

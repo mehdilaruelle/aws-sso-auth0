@@ -26,3 +26,9 @@ variable "sso_groups" {
   }))
   description = "The list of group to create in AWS SSO including: members, policy ARN & account IDs."
 }
+
+variable "auth0_connection_name" {
+  description = "If this variable is used, it will create Auth0 users in the Connection name specify."
+  type        = string
+  default     = null
+}

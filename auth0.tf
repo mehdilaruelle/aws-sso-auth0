@@ -1,4 +1,4 @@
-resource "auth0_client" "my_client" {
+resource "auth0_client" "aws_sso" {
   name        = "AWS SSO"
   description = "AWS SSO connection with Auth0"
   app_type    = "regular_web"
@@ -33,4 +33,19 @@ resource "auth0_client" "my_client" {
       include_attribute_name_format = true
     }
   }
+}
+
+data "http" "idp_metadata" {
+  url = "https://${var.auth0_domain}/samlp/metadata/${auth0_client.aws_sso.client_id}"
+}
+
+resource "auth0_user" "user" {
+  for_each = var.auth0_connection_name == null ? {} : local.users_info
+
+  connection_name = var.auth0_connection_name
+  family_name     = try(upper(split(".", each.value)[1]), "UNDIFINED")
+  given_name      = title(element(split(".", each.value), 0))
+  name            = "${title(element(split(".", each.value), 0))} ${try(upper(split(".", each.value)[1]), "UNDIFINED")}"
+  email           = each.key
+  email_verified  = true
 }

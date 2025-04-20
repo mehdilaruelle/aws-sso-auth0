@@ -8,3 +8,5 @@ provider "aws" {
 provider "auth0" {
   domain = var.auth0_domain
 }
+
+provider "http" {}
