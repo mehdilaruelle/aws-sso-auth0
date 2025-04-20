@@ -146,9 +146,9 @@ When the `terraform apply` is done, you must finalize the configuration on the A
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_auth0_connection_name"></a> [auth0\_connection\_name](#input\_auth0\_connection\_name) | If this variable is used, it will create Auth0 users in the Connection name specify. | `string` | `null` | no |
-| <a name="input_auth0_domain"></a> [auth0\_domain](#input\_auth0\_domain) | The Auth0 domain. | `any` | n/a | yes |
-| <a name="input_aws_acs_callback_url"></a> [aws\_acs\_callback\_url](#input\_aws\_acs\_callback\_url) | The AWS IAM Identity Center Assertion Consumer (ACS) Service URL. It used as a callback by Auth0. | `any` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The region in which the resources will be created. | `any` | n/a | yes |
+| <a name="input_auth0_domain"></a> [auth0\_domain](#input\_auth0\_domain) | The Auth0 domain. | `string` | n/a | yes |
+| <a name="input_aws_acs_callback_url"></a> [aws\_acs\_callback\_url](#input\_aws\_acs\_callback\_url) | The AWS IAM Identity Center Assertion Consumer (ACS) Service URL. It used as a callback by Auth0. | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region in which the resources will be created. | `string` | n/a | yes |
 | <a name="input_sso_groups"></a> [sso\_groups](#input\_sso\_groups) | The list of group to create in AWS SSO including: members, policy ARN & account IDs. | <pre>list(object({<br/>    name        = string,<br/>    description = optional(string),<br/>    policy_arns = list(string),<br/>    members     = optional(list(string), []),<br/>    account_ids = optional(list(string), []),<br/>  }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of key/value to tags resources deploy by the stack. | `map(string)` | `{}` | no |
 

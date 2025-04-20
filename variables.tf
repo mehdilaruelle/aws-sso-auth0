@@ -1,13 +1,16 @@
 variable "region" {
   description = "The region in which the resources will be created."
+  type        = string
 }
 
 variable "auth0_domain" {
   description = "The Auth0 domain."
+  type        = string
 }
 
 variable "aws_acs_callback_url" {
   description = "The AWS IAM Identity Center Assertion Consumer (ACS) Service URL. It used as a callback by Auth0."
+  type        = string
 }
 
 variable "tags" {
