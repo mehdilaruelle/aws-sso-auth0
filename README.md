@@ -27,11 +27,11 @@ token from this user ([refer to the provider documentation](https://registry.ter
 
 The AWS API do not exist to create the [AWS IAM Identity Center (previously AWS SSO)](https://aws.amazon.com/fr/iam/identity-center/). We need manually do the following actions: 
 1. Go to your management account and select primary region
-2. Go to AWS SSO and enable AWS SSO
+2. Go to [AWS IAM Identity Center (previously AWS SSO)](https://aws.amazon.com/fr/iam/identity-center/) and enable it
 3. Configure an [external identity provider source](https://docs.aws.amazon.com/singlesignon/latest/userguide/how-to-connect-idp.html)
 4. Take the **AWS IAM Identity Center Assertion Consumer (ACS) Service URL** and put it to your `terraform.tfvars`
   for the variable `aws_acs_callback_url`.
-5. Do not clause the AWS page when it is required to have the `Identity provider metadata`: ![AWS IdP Metadata](.docs/aws_idp_metadata.png)
+5. Do not close the AWS page when it is required to have the `Identity provider metadata`: ![AWS IdP Metadata](.docs/aws_idp_metadata.png)
 
 Keep the page on the last step, we will finalize this step after the `terraform apply`.
 
@@ -105,7 +105,7 @@ resource "aws_ssoadmin_permission_set_inline_policy" "billing" {
 When the `terraform apply` is done, you must finalize the configuration on the AWS side:
 1. Go back to the AWS page for [external identity provider source](https://docs.aws.amazon.com/singlesignon/latest/userguide/how-to-connect-idp.html) in previous step.
 2. Use the following command `terraform output -raw aws_sso_idp_metadata > /tmp/auth0_metadata.xml` to save the file in '/tmp/auth0_metadata.xml' and upload the file to the section page: `Identity provider metadata`: ![AWS IdP Metadata](.docs/aws_idp_metadata.png)
-3. Go back to the main page of `AWS SSO` and get the `AWS access portal URL` on the right panel.
+3. Go back to the main page of [AWS IAM Identity Center (previously AWS SSO)](https://aws.amazon.com/fr/iam/identity-center/) and get the `AWS access portal URL` on the right panel.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
